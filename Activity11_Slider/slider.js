@@ -1,14 +1,25 @@
 $(document).ready(function() {
     $("#slider").bxSlider({
         auto: true,
-        randomStart: true,      // Task 2: Display first image randomly
-        moveSlides: 1,          // Task 3: Move one slide at a time
-        minSlides: 1,           // Task 4: Display only one image at a time
-        maxSlides: 1,           // Task 4: Display only one image at a time
+        randomStart: true,
+        moveSlides: 1,
+        minSlides: 1,
+        maxSlides: 1,
         slideWidth: 250,
         slideMargin: 10,
-        pager: true,            // Task 6: Display pager
-        pagerCustom: '#pager',  // Task 6: Set pager container
-        pause: 3000             // Task 5: Set time between automatic transitions to 3 seconds
+        pager: true,
+        pagerCustom: '#pager',
+        pause: 3000,
+        onSliderLoad: function(currentIndex) {
+            var currentSlide = $("#slider li").eq(currentIndex);
+            var caption = currentSlide.find('.caption').text();
+            var pagerIcon = currentSlide.find('.pager-icon').html();
+            $("#pager").html(caption + '<br>' + pagerIcon);
+        },
+        onSlideAfter: function($slideElement, oldIndex, newIndex) {
+            var caption = $slideElement.find('.caption').text();
+            var pagerIcon = $slideElement.find('.pager-icon').html();
+            $("#pager").html(caption + '<br>' + pagerIcon);
+        }
     });
 });
